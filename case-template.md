@@ -7,7 +7,7 @@ Use the blank card for every new family. The three tables below are worked examp
 ```md
 ### N. Name
 
-- URL: (the page you opened)
+- Source: (opened URL, or inspected bundled `vendor/pixelfx/src/fx/...` file plus the pinned upstream repository)
 - One line: (what this case is useful for)
 - Style fit: (camera, pixel scale, palette, and motion compared with the chosen project style)
 - Wind-up:

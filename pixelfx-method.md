@@ -1,10 +1,10 @@
 # Using pixelfx as a reference / 将 pixelfx 用作参考
 
-[patch-gg/pixelfx](https://github.com/patch-gg/pixelfx) is an optional MIT-licensed library and authoring reference, not a required dependency of this skill. Its most useful contribution here is a loop: find a relevant effect, render it, inspect the frames and acting, draft a project-specific version, and repeat after seeing the result. Read the upstream [README](https://github.com/patch-gg/pixelfx/blob/main/README.md), [authoring guide](https://github.com/patch-gg/pixelfx/blob/main/docs/AUTHORING.md), and [NOTICE](https://github.com/patch-gg/pixelfx/blob/main/NOTICE.md) when adapting code.
+[patch-gg/pixelfx](https://github.com/patch-gg/pixelfx) is bundled in [vendor/pixelfx](vendor/pixelfx/README.md): 244 runnable effect cases, their editable source, core library, and preview/export tools. The useful loop is to find a relevant effect, render it, inspect the frames and acting, adapt or draft a project-specific version, then inspect it again. Read the bundled [catalog](vendor/pixelfx/docs/CATALOG.md), [authoring guide](vendor/pixelfx/docs/AUTHORING.md), [license](vendor/pixelfx/LICENSE), and [notices](vendor/pixelfx/NOTICE.md) before adapting code.
 
-## Optional local study
+## Work with the bundled cases
 
-Run these in a separate pixelfx checkout (Node 18+). Do not install its runtime into the target game just to study an effect.
+Run these from `vendor/pixelfx` (Node 18+). No separate checkout or package installation is needed.
 
 ```sh
 node tools/list.mjs slash
@@ -12,11 +12,14 @@ node tools/render.mjs melee/sword-slash --all
 node tools/act.mjs melee/sword-slash
 node tools/act.mjs melee/sword-slash --mp4 # optional; requires ffmpeg
 node tools/check.mjs melee/sword-slash
+node tools/render.mjs melee/sword-slash --sheet
 ```
 
 Choose a candidate from `tools/list.mjs` or the catalog; the identifier above is an example. Open the effect contact sheet, consecutive act frames, and playable clip when available. Note the silhouette, moment of release, actor pose, target reaction, layer depth, and decay. Mark each note as directly visible or inferred. Compare at the target game's native scale, with its actual actor if possible. pixelfx's stock actor, palette ramps, additive light, screen shake, and default timings are reference choices, not instructions to copy.
 
-When a pixelfx effect is used as code rather than a visual reference, check its license and NOTICE, credit adapted source, and preserve the target project's original art direction. Its `--sheet` export can produce transparent PNG frames and JSON for engine import; validate pivot, frame size, duration, loops, transparency, and nearest filtering in the target engine. For Godot, pre-exported frames are usually more appropriate than adding the JavaScript renderer at runtime.
+To adapt a case, edit a copy or the selected `src/fx/<category>/<name>.js` and any necessary `src/core/` code; record which bundled case and upstream commit it came from. Keep prior previews before changing a shared case. For a new ID, use `node tools/new.mjs <category>/<name>`. Rerun render, act (when relevant), and check after code changes. Leave generated previews in ignored `records/`, and copy only deliberately selected final exports into a target game.
+
+When a pixelfx effect is used as code rather than a visual reference, preserve its MIT and NOTICE attribution and the target project's original art direction. Its `--sheet` export produces transparent PNG frames and JSON for engine import; validate pivot, frame size, duration, loops, transparency, and nearest filtering in the target engine. For Godot, pre-exported frames are usually more appropriate than adding the JavaScript renderer at runtime.
 
 ## Preview loop for any renderer
 

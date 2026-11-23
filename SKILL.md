@@ -58,7 +58,7 @@ This folder already has worked case tables for three families:
 
 Use them as a starting point, then add or replace cases if the move differs. If a page only describes mechanics, say so; do not invent frame-by-frame color ramps.
 
-The [pixelfx catalog](https://github.com/patch-gg/pixelfx/blob/main/docs/CATALOG.md) can supply *candidate* examples. Render and inspect a candidate before describing its frames. Record what transfers to the selected project style and what must be rejected. See [pixelfx-method.md](pixelfx-method.md) for the optional reference and export workflow.
+The bundled [pixelfx catalog](vendor/pixelfx/docs/CATALOG.md) contains 244 runnable cases. Search it with `node tools/list.mjs <terms>` from `vendor/pixelfx`, then render and inspect relevant candidates before describing their frames. Use these alongside independently published cases; each selected effect is one case, with its vendored source path and upstream attribution. Do not count uninspected catalog entries as studied cases. Record what transfers to the selected project style and what must be rejected. See [pixelfx-method.md](pixelfx-method.md) for editing and export.
 
 ### 3. Write a timeline scheme and contrast the old version
 
@@ -82,6 +82,7 @@ Once approved:
 - Telegraph pixels remain the hitbox. Overflow VFX is allowed, but must not look like an untelegraphed damaging region.
 - Tier feedback correctly (a mid slime slap should not get a climax-only full-screen invert).
 - Render a contact sheet of representative frames and a continuous playback preview. Review both at native game scale, with the actual actor and target when available. An isolated effect sheet cannot prove the whole attack reads well.
+- You may adapt a bundled pixelfx effect's `src/fx/` code or create a new effect. Keep the original source attribution, edit a deliberate copy when preserving the reference matters, and run `render`, `act` where relevant, and `check` after changes. Export only selected final frames to the game.
 
 The example preview GIFs and reference scripts live in [examples/](examples/).
 
@@ -110,7 +111,8 @@ If the pictures or motion still miss the agreed brief, fix the largest observed 
 | [case-template.md](case-template.md) | Blank case card + three filled type tables with real URLs |
 | [scheme-template.md](scheme-template.md) | Timeline scheme template |
 | [checklist.md](checklist.md) | Keyframe self-check list |
-| [pixelfx-method.md](pixelfx-method.md) | Optional pixelfx reference, preview, and export workflow |
+| [vendor/pixelfx/](vendor/pixelfx/README.md) | 244 editable effect cases, core code, and preview/export tools |
+| [pixelfx-method.md](pixelfx-method.md) | Bundled pixelfx search, edit, preview, and export workflow |
 | [examples/](examples/) | v4 preview GIFs and reference renderer scripts |
 
 ## Related
