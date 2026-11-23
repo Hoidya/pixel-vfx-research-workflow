@@ -1,13 +1,13 @@
 ---
 name: vfx-research-workflow
-description: Research published attack VFX cases first, then redraw 2D pixel skill effects. Use when an attack already has a correct telegraph or hitbox but the animation looks timid, technically right but not bold, or when remaking a slash, ground slam, fire burst, slime slap, or similar move. Follow a six-step loop: general rules, 8-12 cited cases, a timeline scheme, user approval before rendering, independent scripts that keep old versions, then keyframe self-check and one iteration if needed.
+description: Research and refine 2D pixel attack VFX when the telegraph and hitbox are sound but the animation lacks force or style fit. Choose the project's reference style, study cited move cases, plan the full action, then render and inspect stills and continuous motion before delivery.
 ---
 
 # VFX research workflow / 先研究案例再画技能特效
 
 A reusable loop for **redrawing** 2D pixel-art attack effects after the warning (telegraph) and hitbox are already fair. It is a companion to [pixel-attack-telegraph](https://github.com/Hoidya/pixel-attack-telegraph), which covers "warning == hitbox". This skill covers **how the attack should look and feel** once that contract is in place.
 
-把它用在「预警和判定已经正确，但出手特效看起来胆小、正确但不像那一招」的时候。先查已发表的案例，再写时间轴方案，**等用户确认后才渲图**。
+把它用在「预警和判定已经正确，但出手特效看起来胆小、正确但不像那一招」的时候。先确认案例画风，查已发表案例，写时间轴方案，**等用户确认后才渲图**，最后检查逐帧和连续动作。
 
 Talk to the user in their language. Use generic public example names (a slime, a samurai, a fire giant, a wooden dummy). Never use a project's private game title, character names, or plot in notes, file names, or commits.
 
@@ -23,24 +23,26 @@ Do **not** use this skill to copy another artist's frames or asset-pack art into
 
 Follow these in order. Helper files in this folder hold the tables and templates.
 
+Before step 1, establish a **style brief**. Ask the user which visual style or existing game art should guide the cases when it has not already been chosen. Record the reference, native character/tile scale, camera angle, outline, palette, texture, motion, and any asset/license constraints. A named style (for example Ninja Adventure) guides selection and adaptation; it does not license copying another artist's frames. If the project already has an art direction, use it without asking again. The project's attack timing, hitbox, and accessibility rules override example numbers below.
+
 ### 1. Restate the general rules
 
 Read [rules.md](rules.md). Before searching, write down (and obey) the shared rules:
 
-- FX about **3–5×** the character, may overflow the hitbox; the **brightest solid core = the hitbox**; telegraph pixels still **= the hitbox**.
+- The main shape must read at the project's native scale. Size and brightness relative to the actor are style- and move-dependent; visual overflow must not imply extra damage. Telegraph pixels still **= the hitbox**.
 - A **recognizable big shape** first (crescent, star spark, shock ring, spike burst, lobed splat). Particles are accents. Heavy moves stay hard-edged.
-- **Uneven timing**: long wind-up, **1–3 frames** of action, **8–15 frames** of dissipate (missing chunks / cooling / shattering, proportional).
-- **Hit frames**: 1–2 frames of full-white / invert / high-contrast impact; **hitstop freezes the most exaggerated picture**.
-- **Few ramps, high contrast**: white core → bright → dark outer, 3–5 hard steps; the theme color is the second layer.
-- **Layer stack**: impact frame + main shape + star spark + speed lines + directional decaying shake + hitstop + victim silhouette + knockback.
-- **Character poses are the skeleton**: clear opposite-direction squash/stretch on the wind-up, stretch/overshoot on the attack, victim flash and pose change.
+- **Uneven timing**: anticipation, fast release, readable contact, and slower recovery; choose frame counts from the move design and project's frame rate.
+- **Hit frames**: use a peak with contrast appropriate to the move. If hitstop is used, freeze its clearest picture; full-white/invert frames are optional, high-tier accents.
+- **Few ramps, high contrast** relative to the chosen style; do not impose a white core, smooth glow, or another library's palette on it.
+- **Layer only what helps**: a main shape, selective accents, clear depth, and target response. Shake, hitstop, and flashes depend on the move's tier and project style.
+- **Character acting is the skeleton**: readable wind-up, release, contact reaction, and recovery using the project's own actor frames. Check that the hand/weapon, effect origin, and target reaction agree in time and place.
 - **Tier the feedback**: light/mid stays restrained; heavy boss moves can wash the screen and hitstop longer; a climax move may add a short screen flash and a longer freeze. Do not spend the climax vocabulary on every hit.
 
 If the project already has a telegraph system, keep "warning pixels == hitbox" while VFX overflow is painted on a separate layer.
 
 ### 2. Collect 8–12 specific cases for this move type
 
-Search for published, citable examples of **this** family (not generic juice). Aim for a mix of games, animation, tutorials, and (optionally) asset-pack **descriptions** — not the art itself.
+Search for published, citable examples of **this** family (not generic juice). Prioritize cases compatible with the chosen camera, pixel scale, and style; use distant styles only for a specific transferable principle. Aim for a mix of games, animation, tutorials, and (optionally) asset-pack **descriptions** — not the art itself.
 
 For each case record, in [case-template.md](case-template.md):
 
@@ -56,9 +58,11 @@ This folder already has worked case tables for three families:
 
 Use them as a starting point, then add or replace cases if the move differs. If a page only describes mechanics, say so; do not invent frame-by-frame color ramps.
 
+The [pixelfx catalog](https://github.com/patch-gg/pixelfx/blob/main/docs/CATALOG.md) can supply *candidate* examples. Render and inspect a candidate before describing its frames. Record what transfers to the selected project style and what must be rejected. See [pixelfx-method.md](pixelfx-method.md) for the optional reference and export workflow.
+
 ### 3. Write a timeline scheme and contrast the old version
 
-Using [scheme-template.md](scheme-template.md), write a scheme **segmented by time** (wind-up, frame 0, peak/hitstop, dissipate, recovery) that a 16px top-down (or the project's) pixel pipeline can actually draw.
+Using [scheme-template.md](scheme-template.md), write a scheme **segmented by time** (wind-up, release, contact, dissipate, recovery) that the project's pixel pipeline can actually draw. Include caster and target acting, effect origin, layering, and the actual gameplay contact time.
 
 Explicitly list what to **keep** from the current version and what is wrong (for example: a filled color bullseye instead of a hollow ring, a symmetric flower instead of irregular tongues, a spatial hash that chews blocky holes in the dissipate).
 
@@ -74,17 +78,18 @@ Once approved:
 
 - New script per move (do not edit a shared renderer that other people are using in parallel).
 - Write to a **new output folder**. Do not overwrite previous versions (`v1`, `v2`, …).
-- Same canvas/pixel contract as the project (the examples here used 576×576, 30 fps, looping GIFs).
-- Telegraph pixels remain the hitbox. Overflow VFX is allowed. Brightest solid core stays inside the hitbox.
+- Same canvas/pixel contract as the project (the examples here used 576×576, 30 fps, looping GIFs; these are not defaults).
+- Telegraph pixels remain the hitbox. Overflow VFX is allowed, but must not look like an untelegraphed damaging region.
 - Tier feedback correctly (a mid slime slap should not get a climax-only full-screen invert).
+- Render a contact sheet of representative frames and a continuous playback preview. Review both at native game scale, with the actual actor and target when available. An isolated effect sheet cannot prove the whole attack reads well.
 
 The example preview GIFs and reference scripts live in [examples/](examples/).
 
-### 6. Keyframe self-check, one iteration, ship with known limits
+### 6. Check stills and motion, refine, ship with known limits
 
-Save keyframes for at least **wind-up, impact, peak (the frozen picture), dissipate**. Open them and score against [checklist.md](checklist.md) and the cases — not only against "did the script run".
+Save keyframes for at least **wind-up, release, contact/peak, dissipate**. Open them, play the full sequence, and score against [checklist.md](checklist.md), the style brief, and the cases — not only against "did the script run". Check the real engine scene when integrating game assets.
 
-If the pictures are still timid or miss a stated rule, **iterate once**. Then deliver:
+If the pictures or motion still miss the agreed brief, fix the largest observed problem and preview again. Stop when the agreed checks pass or state the remaining limitation. Then deliver:
 
 - Paths and file sizes
 - 1–2 sentences per move on what changed
@@ -105,6 +110,7 @@ If the pictures are still timid or miss a stated rule, **iterate once**. Then de
 | [case-template.md](case-template.md) | Blank case card + three filled type tables with real URLs |
 | [scheme-template.md](scheme-template.md) | Timeline scheme template |
 | [checklist.md](checklist.md) | Keyframe self-check list |
+| [pixelfx-method.md](pixelfx-method.md) | Optional pixelfx reference, preview, and export workflow |
 | [examples/](examples/) | v4 preview GIFs and reference renderer scripts |
 
 ## Related

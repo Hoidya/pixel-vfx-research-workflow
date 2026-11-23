@@ -9,6 +9,7 @@ Use the blank card for every new family. The three tables below are worked examp
 
 - URL: (the page you opened)
 - One line: (what this case is useful for)
+- Style fit: (camera, pixel scale, palette, and motion compared with the chosen project style)
 - Wind-up:
 - Impact frame / hitstop:
 - Main shape:
@@ -17,6 +18,7 @@ Use the blank card for every new family. The three tables below are worked examp
 - Dissipate and timing:
 - Color:
 - What the page actually states vs. what you are inferring:
+- Transfer / reject: (one principle to adapt; one reference-specific trait not to copy)
 ```
 
 Collect **8–12** cards, then 4–6 shared patterns for that family, then write the scheme.
