@@ -1,6 +1,6 @@
 # Scheme template / 画法方案模板
 
-Copy this for each move after the case list is done. Write a scheme a 16px (or project) pixel pipeline can actually draw. Then **wait for user approval** before rendering.
+Copy this for each move after the case list is done. Write a scheme the selected project's pixel pipeline can actually draw. Then **wait for user approval** before rendering.
 
 ## Header
 
@@ -10,6 +10,8 @@ Copy this for each move after the case list is done. Write a scheme a 16px (or p
 - Tier (light / mid / heavy / climax):
 - Current version being replaced (do not overwrite it):
 - Pixel contract (size, fps, dither, warning == hitbox):
+- Chosen style reference and approved palette/scale/outline:
+- Actual gameplay contact time and active hit window:
 
 ## Keep / change
 
@@ -26,26 +28,28 @@ Write in frames at the project's fps (examples used 30 fps).
 - What is drawn, and only on hitbox pixels:
 - What must *not* pre-fill the zone (no fire or goo inside the circle until the hit):
 
-### Wind-up (long)
+### Wind-up
 
 - Duration:
-- Body: opposite-direction squash/stretch, pause at the extreme:
+- Body: readable preparation in the chosen actor style:
 - Accents only (dust at the feet, a glint on a sheathed blade, …):
+- Effect origin relative to hand, weapon, body, or ground:
 
-### Action frame 0 (1 frame)
+### Release and contact
 
-- Impact treatment (wash / invert / none — according to tier):
-- Brightest solid core (must sit in the hitbox, irregular is better than a disk):
+- Impact treatment (contrast / wash / invert / none — according to style and tier):
+- Focal shape and its relation to the hitbox:
 - Ring / crack / first debris:
-- Main shape at "bud" length, not yet the peak:
+- Main shape at release, before its clearest peak:
 
-### Peak, then hitstop (freeze  this picture)
+### Peak, then optional hitstop
 
-- Duration of the freeze (light 1–3, heavy about 4–6, climax may be longer but stay readable in a roguelike):
-- The most exaggerated picture: full main shape, ring at its clearest, sparks, speed lines, victim silhouette and knockback:
+- Duration of the freeze, if used (follow project combat timing):
+- The clearest picture, with only the needed accents and target response:
 - Do not keep animating a new color shell during the freeze:
+- Target reaction at the same moment (if applicable):
 
-### Dissipate (8–15 frames, fast then slow)
+### Dissipate (duration from the move and material)
 
 Give each object its own life (do not punch holes in the whole image with one spatial hash):
 
@@ -58,15 +62,15 @@ Give each object its own life (do not punch holes in the whole image with one sp
 ### Recovery
 
 - Caster returns to a readable idle:
-- Victim holds the knocked pose for a beat:
+- Victim's recovery, if applicable:
 - Ground marks may linger a few frames:
 
-## Color (3–5 hard steps)
+## Color (match the selected style)
 
-- Core (white / palest, hitbox only):
-- Theme (second layer):
-- Dark outer / cooled remainder:
-- What you will not do (smooth radial ramps, alpha fade, …):
+- Brightest accent and its relation to the hitbox:
+- Theme color:
+- Dark outer / cooled remainder, if applicable:
+- Treatments the selected style rules out:
 
 ## Explicit non-goals
 
@@ -77,7 +81,9 @@ Give each object its own life (do not punch holes in the whole image with one sp
 ## Success check (short)
 
 - [ ] Big shape reads in one frame
-- [ ] Core = hitbox, telegraph = hitbox
+- [ ] Telegraph = hitbox; effect overflow does not suggest extra damage
 - [ ] Timing is uneven
 - [ ] Dissipate is per-object, not a hashed disk
 - [ ] Tier matches the move
+- [ ] Caster, effect origin, hit and target reaction agree in space and time
+- [ ] Contact sheet and consecutive playback both read at native scale

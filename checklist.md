@@ -8,26 +8,28 @@ Save at least these stills, then open them (do not judge only by whether the GIF
 - Dissipate (mid, not the last empty frame)
 - Optional: recovery / leftover ground marks
 
-Score each item yes / no / n/a, and fix a **single** iteration if several are no.
+Score each item yes / no / n/a. Watch the full animation as well; stills do not reveal timing faults. Fix the largest observed defect, preview again, and state any remaining limitation.
 
 ## Against the eight rules
 
 | Check | Yes / no | Note |
 |---|---|---|
-| FX is about 3–5× the character and may overflow the hitbox |  |  |
-| Brightest solid core sits in the hitbox; overflow is darker |  |  |
+| FX size reads at the project's native scale and matches its style brief |  |  |
+| Visual overflow does not imply untelegraphed damage |  |  |
 | Telegraph pixels still match the hitbox on warning frames |  |  |
 | A big recognizable shape reads before any particles |  |  |
-| Heavy moves are hard-edged, not soft airbrushed blobs |  |  |
-| Wind-up is long; the hit is 1–3 frames |  |  |
-| Dissipate is 8–15 frames, with cooling / missing pieces / shatter |  |  |
+| Edge treatment fits the chosen style and move weight |  |  |
+| Wind-up, release, and active time follow the move design |  |  |
+| Dissipate has a readable rhythm and suits the material |  |  |
 | Hit frame has a contrast punch appropriate to the tier |  |  |
-| Hitstop freezes the *most exaggerated* picture, not a later thin smear |  |  |
-| Color is 3–5 hard steps, white → bright → dark, theme is layer two |  |  |
-| Layers: impact + main shape + spark + (optional) speed lines + decaying directional shake + victim silhouette and knockback |  |  |
-| Wind-up pose is a clear opposite squash/stretch; the attack overshoots |  |  |
-| The victim flashes and changes pose |  |  |
+| Hitstop, if used, freezes the clearest peak rather than a later thin smear |  |  |
+| Palette, edge treatment, and brightness fit the chosen reference style |  |  |
+| Layers support the main shape without obscuring actor, target, or warning |  |  |
+| Caster pose, hand/weapon, and effect origin line up through release |  |  |
+| Victim reaction begins at the actual hit moment, where applicable |  |  |
 | Feedback matches the tier (mid stays restrained; climax is reserved) |  |  |
+| Continuous playback reads at native scale and has no awkward jump or dead frame |  |  |
+| In-game preview keeps depth, pivot, facing, and timing intact |  |  |
 
 ## Against this move's cases
 
@@ -49,7 +51,7 @@ Write three comparisons, not generic juice:
 
 ## Deliver
 
-After at most one extra iteration:
+After the agreed checks pass, or with unresolved limits clearly identified:
 
 - Output path and file size
 - 1–2 sentences on what changed
